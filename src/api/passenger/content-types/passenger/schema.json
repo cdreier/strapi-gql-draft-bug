@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "passengers",
+  "info": {
+    "singularName": "passenger",
+    "pluralName": "passengers",
+    "displayName": "Passenger"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "car": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::car.car",
+      "inversedBy": "passengers"
+    },
+    "driving_car": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::car.car",
+      "mappedBy": "driver"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cars",
+  "info": {
+    "singularName": "car",
+    "pluralName": "cars",
+    "displayName": "Car"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "passengers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::passenger.passenger",
+      "mappedBy": "car"
+    },
+    "driver": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::passenger.passenger",
+      "inversedBy": "driving_car"
+    },
+    "motor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::motor.motor",
+      "mappedBy": "car"
+    }
+  }
+}

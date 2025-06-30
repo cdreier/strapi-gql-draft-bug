@@ -1,61 +1,35 @@
-# 🚀 Getting started with Strapi
+# strapi 5 graphql plugin is broken
 
-Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
+this is a demo to demonstrate our usecases and the points where the gql api is not working reliable
 
-### `develop`
+## datamodel
 
-Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
+there are cars and motors (with draft & publish feature enabled) and passengers (no draft & publish) with relations to a driver and a list of passengers
 
-```
-npm run develop
-# or
-yarn develop
-```
+just create a few entries and publish / link them together as you like, also do not forget to enable all types for the public role
 
-### `start`
+## query draft versions
 
-Start your Strapi application with autoReload disabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-start)
+where the rest api shows everything correct 
 
-```
-npm run start
-# or
-yarn start
-```
+http://localhost:1337/api/cars?populate=*&status=draft
 
-### `build`
+http://localhost:1337/api/cars?populate=*&status=published
 
-Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-build)
+this gql query returns always an empty list for passengers and null for the driver
 
-```
-npm run build
-# or
-yarn build
-```
-
-## ⚙️ Deployment
-
-Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
-
-```
-yarn strapi deploy
+```graphql
+query draftCars {
+	cars(status: DRAFT) {
+		name
+		passengers {
+			name
+		}
+		driver {
+			name
+		}
+	}
+}
 ```
 
-## 📚 Learn more
-
-- [Resource center](https://strapi.io/resource-center) - Strapi resource center.
-- [Strapi documentation](https://docs.strapi.io) - Official Strapi documentation.
-- [Strapi tutorials](https://strapi.io/tutorials) - List of tutorials made by the core team and the community.
-- [Strapi blog](https://strapi.io/blog) - Official Strapi blog containing articles made by the Strapi team and the community.
-- [Changelog](https://strapi.io/changelog) - Find out about the Strapi product updates, new features and general improvements.
-
-Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/strapi). Your feedback and contributions are welcome!
-
-## ✨ Community
-
-- [Discord](https://discord.strapi.io) - Come chat with the Strapi community including the core team.
-- [Forum](https://forum.strapi.io/) - Place to discuss, ask questions and find answers, show your Strapi project and get feedback or just talk with other Community members.
-- [Awesome Strapi](https://github.com/strapi/awesome-strapi) - A curated list of awesome things related to Strapi.
-
----
-
-<sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+requesting with the status `published` - everything shows up
