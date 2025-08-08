@@ -8,34 +8,7 @@ there are cars and motors (with draft & publish feature enabled) and passengers 
 
 just create a few entries and publish / link them together as you like, also do not forget to enable all types for the public role
 
-## query draft versions (fixed with 5.16.1)
-
-where the rest api shows everything correct 
-
-http://localhost:1337/api/cars?populate=*&status=draft
-
-http://localhost:1337/api/cars?populate=*&status=published
-
-this gql query returns always an empty list for passengers and null for the driver
-
-```gql
-query draftCars {
-	cars(status: DRAFT) {
-		name
-		passengers {
-			name
-		}
-		driver {
-			name
-		}
-	}
-}
-```
-
-requesting with the status `published` - everything shows up
-
-
-## new bug with 5.16.1
+## new bug with 5.16.1 (still in 5.21.0)
 
 after updating to 5.16.1 another bug was introduced, we do have usecases where we want both draft and published versions to compare. 
 
@@ -72,3 +45,31 @@ query compareCars {
 	}
 }
 ```
+
+## query draft versions (fixed with 5.16.1)
+
+where the rest api shows everything correct 
+
+http://localhost:1337/api/cars?populate=*&status=draft
+
+http://localhost:1337/api/cars?populate=*&status=published
+
+this gql query returns always an empty list for passengers and null for the driver
+
+```gql
+query draftCars {
+	cars(status: DRAFT) {
+		name
+		passengers {
+			name
+		}
+		driver {
+			name
+		}
+	}
+}
+```
+
+requesting with the status `published` - everything shows up
+
+
