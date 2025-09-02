@@ -8,7 +8,26 @@ there are cars and motors (with draft & publish feature enabled) and passengers 
 
 just create a few entries and publish / link them together as you like, also do not forget to enable all types for the public role
 
-## new bug with 5.16.1 (still in 5.21.0)
+## resolver chains are missing in the request context
+
+the resolver chains as described here are not available in the request context
+
+https://docs.strapi.io/cms/api/graphql/advanced-queries#resolver-chains
+
+in this example i added a custom resolver for the `motor` type
+
+```gql
+query letItCrash {
+	motors {
+		manufacturer
+	}
+}
+```
+
+already checked the koaContext or `strapi.requestContext.get()`, the gql key is not there :/
+
+
+## new bug with 5.16.1 (still in 5.21.0, still in 5.21.3)
 
 after updating to 5.16.1 another bug was introduced, we do have usecases where we want both draft and published versions to compare. 
 
